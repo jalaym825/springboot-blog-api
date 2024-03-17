@@ -4,25 +4,29 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
-import java.util.List;
+import java.util.Date;
 
 @Entity
+@Table
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name="users")
-public class User {
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false)
-    private String name;
+    private String title;
     @Column(nullable = false)
-    private String email;
-    @Column(nullable = false)
-    private String password;
-    private String about;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Post> posts;
+    private String content;
+    private String imageName;
+    @CreatedDate
+    private Date date;
+    @ManyToOne
+    private User user;
+    @ManyToOne
+    private Category category;
+
 }

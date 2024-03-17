@@ -8,21 +8,19 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
+@Table
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name="users")
-public class User {
+public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(nullable = false)
-    private String name;
+    private String title;
     @Column(nullable = false)
-    private String email;
-    @Column(nullable = false)
-    private String password;
-    private String about;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private String description;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Post> posts;
 }
