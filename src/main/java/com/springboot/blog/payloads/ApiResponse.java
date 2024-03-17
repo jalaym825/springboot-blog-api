@@ -29,16 +29,15 @@ public class ApiResponse extends HashMap<String, Object> {
         this.put(fieldName, data);
     }
 
-    public ApiResponse(boolean success, PageResponse pageResponse) throws IllegalAccessException, NoSuchFieldException {
+    public ApiResponse(boolean success, Object obj) throws IllegalAccessException, NoSuchFieldException {
         this.put("success", success);
-        System.out.println(pageResponse);
         Map<String, Object> map = new HashMap<>();
 
-        Class<?> clazz = ((PostsResponse)pageResponse).getClass();
+        Class<?> clazz = obj.getClass();
         while (clazz != null && clazz != Object.class) {
             for (Field field : clazz.getDeclaredFields()) {
                 field.setAccessible(true);
-                Object value = field.get(pageResponse);
+                Object value = field.get(obj);
                 map.put(field.getName(), value);
             }
             clazz = clazz.getSuperclass();
