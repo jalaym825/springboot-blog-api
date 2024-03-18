@@ -1,8 +1,6 @@
 package com.springboot.blog.controllers;
 
-import com.springboot.blog.entities.User;
 import com.springboot.blog.payloads.ApiResponse;
-import com.springboot.blog.payloads.PostDto;
 import com.springboot.blog.payloads.UserDto;
 import com.springboot.blog.services.UserService;
 import jakarta.validation.Valid;
@@ -19,27 +17,27 @@ public class UserController {
     private UserService userService;
 
     //    create user
-    @PostMapping({"/", ""})
+    @PostMapping({"/"})
     public ResponseEntity<ApiResponse> createUser(@Valid @RequestBody UserDto userDto) {
         UserDto userDto1 = this.userService.createUser(userDto);
         return new ResponseEntity<ApiResponse>(new ApiResponse("User created successfully", true, "user", userDto1), HttpStatus.CREATED);
     }
 
     //    get user
-    @GetMapping({"/{userId}", "/{userId}/"})
+    @GetMapping({"/{userId}"})
     public ResponseEntity<ApiResponse> getUser(@PathVariable("userId") int userId) throws Exception {
         UserDto userDto = this.userService.getUserById(userId);
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, "user", userDto), HttpStatus.OK);
     }
 
     //    get all users
-    @GetMapping({"/", ""})
+    @GetMapping({"/"})
     public ResponseEntity<ApiResponse> getAllUsers() {
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, "users", this.userService.getAllUsers()), HttpStatus.OK);
     }
 
     //    updating user
-    @PutMapping({"/{userId}", "/{userId}/"})
+    @PutMapping({"/{userId}"})
     public ResponseEntity<ApiResponse> updateUser(@Validated @RequestBody UserDto userDto, @PathVariable("userId") int userId) {
         UserDto userDto1 = this.userService.updateUser(userDto, userId);
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, "user", userDto1), HttpStatus.OK);

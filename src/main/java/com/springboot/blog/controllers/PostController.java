@@ -63,7 +63,7 @@ public class PostController {
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, postsByCategory), HttpStatus.OK);
     }
 
-    @GetMapping({"/posts", "/posts/"})
+    @GetMapping({"/posts"})
     public ResponseEntity<ApiResponse> getAllPosts(@RequestParam(defaultValue = AppConstants.PAGE_NUMBER, required = false) int pageNumber,
                                                    @RequestParam(defaultValue = AppConstants.PAGE_SIZE, required = false) int pageSize,
                                                    @RequestParam(defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
@@ -72,13 +72,13 @@ public class PostController {
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, postsResponse), HttpStatus.OK);
     }
 
-    @GetMapping({"/posts/{postId}", "/posts/{postId}/"})
+    @GetMapping({"/posts/{postId}"})
     public ResponseEntity<ApiResponse> getPost(@PathVariable int postId) {
         PostDto post = this.postService.getPost(postId);
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, "post", post), HttpStatus.OK);
     }
 
-    @DeleteMapping({"/posts/{postId}", "/posts/{postId}/"})
+    @DeleteMapping({"/posts/{postId}"})
     public ResponseEntity<ApiResponse> deletePost(@PathVariable int postId) {
         this.postService.deletePost(postId);
         return new ResponseEntity<ApiResponse>(new ApiResponse("Post deleted successfully", true), HttpStatus.OK);
