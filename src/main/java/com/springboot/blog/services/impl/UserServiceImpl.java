@@ -1,16 +1,12 @@
 package com.springboot.blog.services.impl;
 
 
-import com.springboot.blog.entities.Category;
-import com.springboot.blog.entities.Post;
 import com.springboot.blog.entities.User;
 import com.springboot.blog.exceptions.ResourceNotFoundException;
-import com.springboot.blog.payloads.PostDto;
 import com.springboot.blog.payloads.UserDto;
 import com.springboot.blog.repositories.CategoryRepo;
 import com.springboot.blog.repositories.PostRepo;
 import com.springboot.blog.repositories.UserRepo;
-import com.springboot.blog.services.PostService;
 import com.springboot.blog.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

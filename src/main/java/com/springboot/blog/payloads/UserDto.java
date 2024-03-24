@@ -1,7 +1,9 @@
 package com.springboot.blog.payloads;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,7 @@ import java.util.List;
 public class UserDto {
     private int id;
     @NotBlank(message = "Name is required")
+    @JsonProperty("userName")
     private String name;
     @Email(message = "Email is not valid")
     @NotBlank(message = "Email is required")

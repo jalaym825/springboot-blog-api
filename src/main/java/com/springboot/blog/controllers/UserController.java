@@ -5,6 +5,8 @@ import com.springboot.blog.payloads.UserDto;
 import com.springboot.blog.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +29,12 @@ public class UserController {
     @GetMapping({"/{userId}"})
     public ResponseEntity<ApiResponse> getUser(@PathVariable("userId") int userId) throws Exception {
         UserDto userDto = this.userService.getUserById(userId);
-        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "user", userDto), HttpStatus.OK);
+        EntityModel<UserDto> entityModel = EntityModel.of(userDto);
+        WebMvcLinkBuilder linkBuilder = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAllUsers());
+        entityModel.add(linkBuilder.withRel("users"));
+        entityModel.add(linkBuilder.withRel("OK"));
+//        return entityModel;
+        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "user", entityModel), HttpStatus.OK);
     }
 
     //    get all users
